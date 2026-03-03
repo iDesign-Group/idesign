@@ -17,7 +17,7 @@
     </div>
     <div class="grid-ft">
     <?php foreach([
-      ['fa-lock','Free SSL Certificate','Every plan ships with a free Let's Encrypt SSL for full HTTPS security.'],
+      ['fa-lock','Free SSL Certificate','Every plan ships with a free Let\'s Encrypt SSL for full HTTPS security.'],
       ['fa-database','Daily Automated Backups','Your data is backed up every night and stored off-site for 30 days.'],
       ['fa-terminal','cPanel Control Panel','The industry-standard control panel makes managing your hosting effortless.'],
       ['fa-envelope','Free Business Email','Get branded @yourdomain email addresses included with every plan.'],

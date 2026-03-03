@@ -1,0 +1,26 @@
+Options -Indexes
+RewriteEngine On
+RewriteBase /
+
+# -----------------------------------------------
+# Block direct browser access to /pages/*.php
+# THE_REQUEST holds the original HTTP request line
+# so internal mod_rewrite rewrites are NOT blocked
+# -----------------------------------------------
+RewriteCond %{THE_REQUEST} \s/+pages/ [NC]
+RewriteRule ^ - [F,L]
+
+# -----------------------------------------------
+# Clean URLs  (no .php, no /pages/ prefix)
+# -----------------------------------------------
+RewriteRule ^hosting/?$   pages/hosting.php   [L,QSA]
+RewriteRule ^domains/?$   pages/domains.php   [L,QSA]
+RewriteRule ^webdesign/?$ pages/webdesign.php [L,QSA]
+RewriteRule ^email/?$     pages/email.php     [L,QSA]
+RewriteRule ^security/?$  pages/security.php  [L,QSA]
+RewriteRule ^contact/?$   pages/contact.php   [L,QSA]
+
+# -----------------------------------------------
+# Serve index.php for root request
+# -----------------------------------------------
+RewriteRule ^$ index.php [L,QSA]
