@@ -1,4 +1,3 @@
-
 "use strict";
 // Navbar scroll
 const nb=document.getElementById('nb');
@@ -70,14 +69,14 @@ function runCounters(){
 const ss=document.querySelector('.stats');
 if(ss){const so=new IntersectionObserver(e=>{if(e[0].isIntersecting){runCounters();so.disconnect()}},{threshold:.5});so.observe(ss)}
 
-// AJAX contact
+// AJAX contact form
 const cf=document.getElementById('cf');
 if(cf){cf.addEventListener('submit',async e=>{
   e.preventDefault();
   const btn=cf.querySelector('button[type=submit]'),st=document.getElementById('fst');
   btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending…';
   try{
-    const r=await fetch(location.pathname.includes('/pages/') ? '../api/contact.php' : 'api/contact.php',{method:'POST',body:new FormData(cf)});
+    const r=await fetch('/api/contact.php',{method:'POST',body:new FormData(cf)});
     const j=await r.json();
     st.className='fst '+(j.success?'ok':'er');st.textContent=j.message;
     if(j.success)cf.reset();
@@ -94,7 +93,7 @@ if(df){df.addEventListener('submit',async e=>{
   if(!q)return;
   res.innerHTML='<div class="ld"><i class="fas fa-spinner fa-spin"></i> Searching…</div>';
   try{
-    const r=await fetch((location.pathname.includes('/pages/') ? '../api/' : 'api/')+'domain_check.php?domain='+encodeURIComponent(q));
+    const r=await fetch('/api/domain_check.php?domain='+encodeURIComponent(q));
     const j=await r.json();
     if(j.success)res.innerHTML=j.results.map(d=>`
       <div class="dr ${d.available?'av':'tk'}">
@@ -103,10 +102,11 @@ if(df){df.addEventListener('submit',async e=>{
         <span class="dp">${d.price}</span>
         ${d.available?'<button class="btn-xs">Add to Cart</button>':''}
       </div>`).join('');
-  }catch{res.innerHTML='<div class="ld">Search failed. Try again.</div>'}
+    else res.innerHTML='<div class="ld">'+j.message+'</div>';
+  }catch{res.innerHTML='<div class="ld">Search failed. Please try again.</div>'}
 })}
 
-// Load service flip-cards from JSON via AJAX
+// Load service flip-cards from JSON
 const aobs=new IntersectionObserver(es=>{
   es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');aobs.unobserve(e.target)}})
 },{threshold:.13});
@@ -114,7 +114,7 @@ const aobs=new IntersectionObserver(es=>{
 async function loadSvc(id,cat){
   const el=document.getElementById(id);if(!el)return;
   try{
-    const r=await fetch(location.pathname.includes('/pages/') ? '../api/services.json' : 'api/services.json');const d=await r.json();
+    const r=await fetch('/api/services.json');const d=await r.json();
     el.innerHTML=(d[cat]||[]).map(s=>`
       <div class="fc aos">
         <div class="fc-in">
@@ -128,7 +128,7 @@ async function loadSvc(id,cat){
           <div class="fc-b">
             <h3>${s.name}</h3>
             <ul>${s.features.map(f=>`<li><i class="fas fa-check"></i>${f}</li>`).join('')}</ul>
-            <a href="/pages/contact.php?service=${s.id}" class="btn-sm">Get Started</a>
+            <a href="/contact?service=${s.id}" class="btn-sm">Get Started</a>
           </div>
         </div>
       </div>`).join('');

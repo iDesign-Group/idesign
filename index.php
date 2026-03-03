@@ -1,4 +1,4 @@
-<?php $pt="Web Design Hosting Email & Domain Services"; require_once __DIR__.'/includes/header.php'; ?>
+<?php $pt="Web Design, Hosting, Email & Domain Services Mumbai"; require_once __DIR__.'/includes/header.php'; ?>
 
 <section class="hero">
   <canvas id="pCanvas"></canvas>
@@ -6,10 +6,10 @@
     <div class="badge"><i class="fas fa-bolt"></i>&nbsp;Mumbai's #1 Digital Agency</div>
     <h1>We Power Your <span>Digital</span> World</h1>
     <div class="hero-sub">Expert in&nbsp;<span id="typed"></span></div>
-    <p class="hero-p">From blazing-fast web hosting to cutting-edge web design, email solutions and domain management — all under one roof.</p>
+    <p class="hero-p">From blazing-fast web hosting to cutting-edge web design, email solutions and domain management &mdash; all under one roof.</p>
     <div class="hero-btns">
-      <a href="/pages/contact.php" class="btn btn-red"><span>Get Started Free</span><i class="fas fa-arrow-right"></i></a>
-      <a href="/pages/hosting.php" class="btn btn-ol"><i class="fas fa-server"></i><span>View Hosting Plans</span></a>
+      <a href="/contact" class="btn btn-red"><span>Get Started Free</span><i class="fas fa-arrow-right"></i></a>
+      <a href="/hosting" class="btn btn-ol"><i class="fas fa-server"></i><span>View Hosting Plans</span></a>
     </div>
   </div>
   <div class="scroll-ind"><span>SCROLL</span><i class="fas fa-chevron-down"></i></div>
@@ -64,7 +64,7 @@
 
 <section class="sec sec-alt">
   <div class="wrap">
-    <div class="sec-hd aos"><span class="sec-tag">Security & Backup</span>
+    <div class="sec-hd aos"><span class="sec-tag">Security &amp; Backup</span>
       <h2 class="sec-title">Protect What <span>Matters</span></h2>
       <p class="sec-desc">SSL certificates and automated backups keep your business data safe 24/7.</p>
     </div>
@@ -102,10 +102,10 @@
       <div class="ci aos">
         <h3>Let's Talk Business</h3>
         <p>Whether you need a new website, hosting, email setup or domain — our experts are ready to help.</p>
-        <div class="cd"><i class="fas fa-envelope"></i><span>info@idesigngroup.co.in</span></div>
-        <div class="cd"><i class="fas fa-phone"></i><span>+91 99999 99999</span></div>
+        <div class="cd"><i class="fas fa-envelope"></i><span><?=SITE_EMAIL?></span></div>
+        <div class="cd"><i class="fas fa-phone"></i><span><?=SITE_PHONE?></span></div>
         <div class="cd"><i class="fas fa-map-marker-alt"></i><span>Mumbai, Maharashtra, India</span></div>
-        <div class="cd"><i class="fas fa-globe"></i><a href="https://www.idesigngroup.co.in">www.idesigngroup.co.in</a></div>
+        <div class="cd"><i class="fas fa-globe"></i><a href="<?=SITE_URL?>"><?=str_replace(['https://','http://'],'',SITE_URL)?></a></div>
       </div>
       <div class="cf aos">
         <form id="cf" novalidate>

@@ -4,32 +4,32 @@
       <div class="flogo"><span class="logo-i">i</span><span class="logo-d">Design</span></div>
       <p>Crafting digital experiences that push boundaries. Your vision, our expertise.</p>
       <div class="social">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
     <div class="fcol"><h4>Hosting</h4><ul>
-      <li><a href="<?=$root?>pages/hosting.php#shared">Shared Hosting</a></li>
-      <li><a href="<?=$root?>pages/hosting.php#dedicated">Dedicated Server</a></li>
-      <li><a href="<?=$root?>pages/hosting.php#wordpress">WordPress Hosting</a></li>
-      <li><a href="<?=$root?>pages/hosting.php#cloud">Cloud Hosting</a></li>
+      <li><a href="/hosting#shared"><i class="fas fa-chevron-right"></i>Shared Hosting</a></li>
+      <li><a href="/hosting#dedicated"><i class="fas fa-chevron-right"></i>Dedicated Server</a></li>
+      <li><a href="/hosting#wordpress"><i class="fas fa-chevron-right"></i>WordPress Hosting</a></li>
+      <li><a href="/hosting#cloud"><i class="fas fa-chevron-right"></i>Cloud Hosting</a></li>
     </ul></div>
     <div class="fcol"><h4>Services</h4><ul>
-      <li><a href="<?=$root?>pages/webdesign.php">Web Design</a></li>
-      <li><a href="<?=$root?>pages/email.php">Email Hosting</a></li>
-      <li><a href="<?=$root?>pages/domains.php">Domain Names</a></li>
-      <li><a href="<?=$root?>pages/security.php">SSL &amp; Backup</a></li>
+      <li><a href="/webdesign"><i class="fas fa-chevron-right"></i>Web Design</a></li>
+      <li><a href="/email"><i class="fas fa-chevron-right"></i>Email Hosting</a></li>
+      <li><a href="/domains"><i class="fas fa-chevron-right"></i>Domain Names</a></li>
+      <li><a href="/security"><i class="fas fa-chevron-right"></i>SSL &amp; Backup</a></li>
     </ul></div>
     <div class="fcol"><h4>Contact</h4><ul>
-      <li><i class="fas fa-envelope"></i> info@idesigngroup.co.in</li>
-      <li><i class="fas fa-phone"></i> +91 99999 99999</li>
+      <li><i class="fas fa-envelope"></i> <?=SITE_EMAIL?></li>
+      <li><i class="fas fa-phone"></i> <?=SITE_PHONE?></li>
       <li><i class="fas fa-map-marker-alt"></i> Mumbai, India</li>
-      <li><i class="fas fa-globe"></i> <a href="https://www.idesigngroup.co.in">idesigngroup.co.in</a></li>
+      <li><i class="fas fa-globe"></i> <a href="<?=SITE_URL?>"><?=str_replace(['https://','http://'],'',SITE_URL)?></a></li>
     </ul></div>
   </div>
-  <div class="fbot">&copy; <?=date('Y')?> iDesign Group. All rights reserved.</div>
+  <div class="fbot">&copy; <?=date('Y')?> iDesign Group. All rights reserved. &nbsp;|&nbsp; <a href="/sitemap.xml">Sitemap</a></div>
 </footer>
 <script src="<?=$root?>assets/js/main.js"></script>
 </body></html>

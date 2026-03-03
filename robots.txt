@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /pages/
+Disallow: /includes/
+Disallow: /api/
+Disallow: /config.php
+Disallow: /assets/js/
+Disallow: /assets/css/
+
+# Allow crawling of important assets for rich results
+Allow: /assets/images/
+
+Sitemap: https://www.idesigngroup.co.in/sitemap.xml
