@@ -17,7 +17,10 @@ if(!defined('SITE_NAME')) require_once $root.'config.php';
 <div class="noise"></div>
 <nav class="navbar" id="nb">
   <div class="nav-wrap">
-    <a href="<?=$root?>index.php" class="nav-logo"><span class="logo-i">i</span><span class="logo-d">Design</span></a>
+    <a href="<?=$root?>index.php" class="nav-logo">
+      <img src="<?=$root?>assets/images/logo.png" alt="iDesign" class="nav-logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='inline';" />
+      <span class="nav-logo-text" style="display:none;"><span class="logo-i">i</span><span class="logo-d">Design</span></span>
+    </a>
     <button class="hbg" id="hbg" aria-label="Menu"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="nls">
       <li><a href="<?=$root?>index.php" class="nav-a">Home</a></li>
