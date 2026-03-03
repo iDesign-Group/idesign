@@ -3,7 +3,17 @@ RewriteEngine On
 RewriteBase /
 
 # -----------------------------------------------
-# Clean URLs  (no .php, no /pages/ prefix)
+# 301 Redirects: old pages/*.php → clean URLs
+# -----------------------------------------------
+RewriteRule ^pages/hosting\.php$   /hosting   [R=301,L]
+RewriteRule ^pages/domains\.php$   /domains   [R=301,L]
+RewriteRule ^pages/webdesign\.php$ /webdesign [R=301,L]
+RewriteRule ^pages/email\.php$     /email     [R=301,L]
+RewriteRule ^pages/security\.php$  /security  [R=301,L]
+RewriteRule ^pages/contact\.php$   /contact   [R=301,L]
+
+# -----------------------------------------------
+# Clean URLs → internal rewrite to pages/*.php
 # -----------------------------------------------
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
@@ -30,6 +40,6 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^contact/?$   pages/contact.php   [L,QSA]
 
 # -----------------------------------------------
-# Serve index.php for root
+# Root → index.php
 # -----------------------------------------------
 RewriteRule ^$ index.php [L,QSA]
