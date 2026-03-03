@@ -3,24 +3,33 @@ RewriteEngine On
 RewriteBase /
 
 # -----------------------------------------------
-# Block direct browser access to /pages/*.php
-# THE_REQUEST holds the original HTTP request line
-# so internal mod_rewrite rewrites are NOT blocked
-# -----------------------------------------------
-RewriteCond %{THE_REQUEST} \s/+pages/ [NC]
-RewriteRule ^ - [F,L]
-
-# -----------------------------------------------
 # Clean URLs  (no .php, no /pages/ prefix)
 # -----------------------------------------------
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^hosting/?$   pages/hosting.php   [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^domains/?$   pages/domains.php   [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^webdesign/?$ pages/webdesign.php [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^email/?$     pages/email.php     [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^security/?$  pages/security.php  [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^contact/?$   pages/contact.php   [L,QSA]
 
 # -----------------------------------------------
-# Serve index.php for root request
+# Serve index.php for root
 # -----------------------------------------------
 RewriteRule ^$ index.php [L,QSA]
