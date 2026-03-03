@@ -5,6 +5,7 @@
   --fh:'Orbitron',sans-serif;--fb:'Rajdhani',sans-serif;
   --tr:.4s cubic-bezier(.25,.8,.25,1);--r:12px;
   --glow:0 0 20px var(--red-glow),0 0 40px rgba(220,30,30,.2);
+  --nav-h:108px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -20,7 +21,8 @@ img{max-width:100%;display:block}
 
 /* NAVBAR */
 .navbar{
-  position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 0;
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:.35rem 0;
   background:rgba(20,20,32,.45);
   backdrop-filter:blur(18px) saturate(160%);
   -webkit-backdrop-filter:blur(18px) saturate(160%);
@@ -33,7 +35,7 @@ img{max-width:100%;display:block}
   backdrop-filter:blur(28px) saturate(180%);
   -webkit-backdrop-filter:blur(28px) saturate(180%);
   border-bottom:1px solid rgba(220,30,30,.22);
-  padding:.7rem 0;
+  padding:.25rem 0;
   box-shadow:0 4px 32px rgba(0,0,0,.55);
 }
 .nav-wrap{max-width:1400px;margin:0 auto;padding:0 2rem;
@@ -41,7 +43,7 @@ img{max-width:100%;display:block}
 .nav-logo{font-family:var(--fh);font-size:2rem;font-weight:900;letter-spacing:2px}
 .logo-i{color:var(--red)}.logo-d{color:var(--white)}
 .nav-logo-img{
-  height:120px;width:auto;max-width:300px;display:block;
+  height:100px;width:auto;max-width:280px;display:block;
   object-fit:contain;
   filter:
     drop-shadow(0 0 6px rgba(220,30,30,.9))
@@ -52,7 +54,7 @@ img{max-width:100%;display:block}
   transition:height .4s ease, filter .4s ease;
 }
 .navbar.scrolled .nav-logo-img{
-  height:85px;
+  height:75px;
   filter:
     drop-shadow(0 0 8px rgba(220,30,30,.95))
     drop-shadow(0 0 22px rgba(220,30,30,.7))
@@ -93,6 +95,7 @@ img{max-width:100%;display:block}
 /* HERO */
 .hero{position:relative;min-height:100dvh;display:flex;align-items:center;
   justify-content:center;overflow:hidden;
+  padding-top:var(--nav-h);
   background:radial-gradient(ellipse at 20% 50%,rgba(220,30,30,.12) 0%,transparent 60%),
              radial-gradient(ellipse at 80% 20%,rgba(220,30,30,.08) 0%,transparent 50%),
              var(--dark)}
@@ -135,7 +138,8 @@ img{max-width:100%;display:block}
 /* STATS */
 .stats{padding:3.5rem 2rem;background:var(--dark2);
   border-top:1px solid rgba(220,30,30,.1);
-  border-bottom:1px solid rgba(220,30,30,.1)}
+  border-bottom:1px solid rgba(220,30,30,.1);
+  scroll-margin-top:var(--nav-h)}
 .stats-g{max-width:1200px;margin:0 auto;
   display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:2rem;
   text-align:center}
@@ -144,7 +148,7 @@ img{max-width:100%;display:block}
 .stat-p{color:var(--grey);font-size:.85rem;letter-spacing:1px;text-transform:uppercase}
 
 /* SECTIONS */
-.sec{padding:6rem 2rem;position:relative}
+.sec{padding:6rem 2rem;position:relative;scroll-margin-top:var(--nav-h)}
 .sec-alt{background:var(--dark2)}
 .sec-hd{text-align:center;margin-bottom:4rem}
 .sec-tag{display:inline-block;color:var(--red);font-size:.78rem;
@@ -254,7 +258,8 @@ img{max-width:100%;display:block}
 
 /* PAGE BANNER */
 .banner{min-height:40dvh;display:flex;align-items:center;justify-content:center;
-  flex-direction:column;text-align:center;padding:8rem 2rem 4rem;
+  flex-direction:column;text-align:center;
+  padding-top:calc(var(--nav-h) + 3rem);padding-bottom:4rem;padding-left:2rem;padding-right:2rem;
   background:radial-gradient(ellipse at center,rgba(220,30,30,.1) 0%,transparent 70%),var(--dark);
   border-bottom:1px solid rgba(220,30,30,.1)}
 .banner h1{font-family:var(--fh);font-size:clamp(1.9rem,4vw,3.2rem);color:var(--white)}
@@ -297,8 +302,11 @@ img{max-width:100%;display:block}
   .cg{grid-template-columns:1fr;gap:2rem}
 }
 @media(max-width:768px){
+  :root{--nav-h:90px}
   .hbg{display:flex}
-  .nav-links{position:fixed;top:100px;left:0;right:0;
+  .nav-logo-img{height:80px}
+  .navbar.scrolled .nav-logo-img{height:60px}
+  .nav-links{position:fixed;top:var(--nav-h);left:0;right:0;
     background:rgba(20,20,32,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
     flex-direction:column;gap:0;
     max-height:0;overflow:hidden;transition:max-height .4s ease}
