@@ -1,0 +1,17 @@
+{
+  "hosting":[
+    {"id":"shared","name":"Shared Hosting","icon":"fa-server","tagline":"Perfect for startups","price":"₹99/mo","features":["10 GB SSD Storage","5 Email Accounts","Free SSL Certificate","99.9% Uptime SLA","cPanel Control Panel"]},
+    {"id":"dedicated","name":"Dedicated Server","icon":"fa-database","tagline":"Full power & control","price":"₹4999/mo","features":["Unlimited SSD Storage","Unlimited Bandwidth","Full Root Access","24/7 Priority Support","Custom Server Config"]},
+    {"id":"wordpress","name":"WordPress Hosting","icon":"fa-wordpress","tagline":"Optimised for WordPress","price":"₹199/mo","features":["1-Click WP Install","Auto Core Updates","LiteSpeed Cache","Free Premium Theme","Daily Automated Backup"]},
+    {"id":"cloud","name":"Cloud Hosting","icon":"fa-cloud","tagline":"Scale on demand","price":"₹599/mo","features":["Auto-Scaling Resources","Load Balancing","99.99% Uptime","Multi-Region Deploy","Pay-as-you-Go"]}
+  ],
+  "email":[
+    {"id":"basic","name":"Basic Email","icon":"fa-envelope","tagline":"For individuals & freelancers","price":"₹49/mo","features":["5 GB Mailbox Storage","5 Email Accounts","Webmail Interface","SMTP / IMAP / POP3","Spam & Virus Filter"]},
+    {"id":"enterprise","name":"Enterprise Email","icon":"fa-envelope-open-text","tagline":"For growing teams","price":"₹149/mo","features":["25 GB Mailbox Storage","25 Email Accounts","Calendar & Contacts Sync","Mobile Device Sync","Advanced Spam Filter"]},
+    {"id":"corporate","name":"Corporate Email","icon":"fa-building","tagline":"For large organisations","price":"₹399/mo","features":["Unlimited Storage","Unlimited Accounts","Microsoft Teams Integration","Email Archiving","Priority 24/7 Support"]}
+  ],
+  "security":[
+    {"id":"ssl","name":"SSL Certificate","icon":"fa-lock","tagline":"Encrypt & build trust","price":"₹499/yr","features":["256-bit Encryption","Green Padlock & HTTPS","Wildcard Option Available","Browser Trusted CA","Auto Renewal Reminder"]},
+    {"id":"backup","name":"Backup & Restore","icon":"fa-shield-alt","tagline":"Never lose your data","price":"₹299/mo","features":["Daily Automated Backups","30-Day Backup Retention","One-Click Restore","Off-site Secure Storage","Email Backup Alerts"]}
+  ]
+}
