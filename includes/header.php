@@ -2,7 +2,7 @@
 $root = str_repeat('../', substr_count($_SERVER['PHP_SELF'], '/') - 1);
 if(!defined('SITE_NAME')) require_once $root.'config.php';
 
-/* ── SEO helpers ──────────────────────────────────────────────── */
+/* ── SEO helpers ───────────────────────────────────────────── */
 $_path     = strtok($_SERVER['REQUEST_URI'], '?');
 $_seo      = defined('SEO_PAGES') ? (SEO_PAGES[$_path] ?? SEO_PAGES['/']) : [];
 $meta_desc = $desc ?? ($_seo['desc'] ?? 'iDesign — Web Design, Hosting, Email & Domain Services in Mumbai, India.');
@@ -21,18 +21,18 @@ $ga4_id    = defined('GA4_ID') ? GA4_ID : 'G-XXXXXXXXXX';
 
   <!-- Primary SEO -->
   <title><?=htmlspecialchars($meta_ttl)?></title>
-  <meta name="description" content="<?=htmlspecialchars($meta_desc)"/>
-  <meta name="keywords"    content="<?=htmlspecialchars($meta_kw)"/>
+  <meta name="description" content="<?=htmlspecialchars($meta_desc)?>"/>
+  <meta name="keywords"    content="<?=htmlspecialchars($meta_kw)?>"/>
   <meta name="author"      content="iDesign Group, Mumbai"/>
   <meta name="robots"      content="index, follow, max-snippet:-1, max-image-preview:large"/>
-  <link rel="canonical"    href="<?=htmlspecialchars($canonical)"/>
+  <link rel="canonical"    href="<?=htmlspecialchars($canonical)?>"/>
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website"/>
-  <meta property="og:url"         content="<?=htmlspecialchars($canonical)"/>
-  <meta property="og:title"       content="<?=htmlspecialchars($meta_ttl)"/>
-  <meta property="og:description" content="<?=htmlspecialchars($meta_desc)"/>
-  <meta property="og:image"       content="<?=htmlspecialchars($og_image)"/>
+  <meta property="og:url"         content="<?=htmlspecialchars($canonical)?>"/>
+  <meta property="og:title"       content="<?=htmlspecialchars($meta_ttl)?>"/>
+  <meta property="og:description" content="<?=htmlspecialchars($meta_desc)?>"/>
+  <meta property="og:image"       content="<?=htmlspecialchars($og_image)?>"/>
   <meta property="og:image:width"  content="1200"/>
   <meta property="og:image:height" content="630"/>
   <meta property="og:site_name"   content="iDesign"/>
@@ -40,9 +40,9 @@ $ga4_id    = defined('GA4_ID') ? GA4_ID : 'G-XXXXXXXXXX';
 
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image"/>
-  <meta name="twitter:title"       content="<?=htmlspecialchars($meta_ttl)"/>
-  <meta name="twitter:description" content="<?=htmlspecialchars($meta_desc)"/>
-  <meta name="twitter:image"       content="<?=htmlspecialchars($og_image)"/>
+  <meta name="twitter:title"       content="<?=htmlspecialchars($meta_ttl)?>"/>
+  <meta name="twitter:description" content="<?=htmlspecialchars($meta_desc)?>"/>
+  <meta name="twitter:image"       content="<?=htmlspecialchars($og_image)?>"/>
 
   <!-- JSON-LD: LocalBusiness -->
   <script type="application/ld+json">
