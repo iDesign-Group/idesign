@@ -28,6 +28,8 @@ img{max-width:100%;display:block}
   display:flex;align-items:center;justify-content:space-between}
 .nav-logo{font-family:var(--fh);font-size:1.6rem;font-weight:900;letter-spacing:2px}
 .logo-i{color:var(--red)}.logo-d{color:var(--white)}
+.nav-logo-img{height:44px;width:auto;max-width:160px;display:block;object-fit:contain;filter:drop-shadow(0 0 6px rgba(220,30,30,.25))}
+.navbar.scrolled .nav-logo-img{height:36px}
 .nav-links{display:flex;align-items:center;gap:.4rem}
 .nav-a{font-size:.9rem;font-weight:600;padding:.5rem 1rem;border-radius:6px;
   letter-spacing:1px;text-transform:uppercase;color:var(--grey);
