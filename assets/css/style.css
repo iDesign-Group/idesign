@@ -41,15 +41,23 @@ img{max-width:100%;display:block}
 .nav-logo{font-family:var(--fh);font-size:2rem;font-weight:900;letter-spacing:2px}
 .logo-i{color:var(--red)}.logo-d{color:var(--white)}
 .nav-logo-img{
-  height:100px;width:auto;max-width:260px;display:block;
+  height:120px;width:auto;max-width:300px;display:block;
   object-fit:contain;
-  filter:drop-shadow(0 0 12px rgba(220,30,30,.55)) drop-shadow(0 0 28px rgba(220,30,30,.25)) brightness(1.08);
+  filter:
+    drop-shadow(0 0 6px rgba(220,30,30,.9))
+    drop-shadow(0 0 18px rgba(220,30,30,.6))
+    drop-shadow(0 0 40px rgba(220,30,30,.3))
+    brightness(1.1);
   mix-blend-mode:multiply;border-radius:4px;
-  transition:var(--tr);
+  transition:height .4s ease, filter .4s ease;
 }
 .navbar.scrolled .nav-logo-img{
-  height:60px;
-  filter:drop-shadow(0 0 8px rgba(220,30,30,.45)) drop-shadow(0 0 18px rgba(220,30,30,.2)) brightness(1.06);
+  height:85px;
+  filter:
+    drop-shadow(0 0 8px rgba(220,30,30,.95))
+    drop-shadow(0 0 22px rgba(220,30,30,.7))
+    drop-shadow(0 0 50px rgba(220,30,30,.4))
+    brightness(1.15);
 }
 .nav-links{display:flex;align-items:center;gap:.4rem}
 .nav-a{font-size:.9rem;font-weight:600;padding:.5rem 1rem;border-radius:6px;
@@ -290,7 +298,7 @@ img{max-width:100%;display:block}
 }
 @media(max-width:768px){
   .hbg{display:flex}
-  .nav-links{position:fixed;top:90px;left:0;right:0;
+  .nav-links{position:fixed;top:100px;left:0;right:0;
     background:rgba(20,20,32,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
     flex-direction:column;gap:0;
     max-height:0;overflow:hidden;transition:max-height .4s ease}
