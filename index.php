@@ -17,11 +17,11 @@
 
 <section class="stats">
   <div class="stats-g">
-    <div class="aos"><span class="counter" data-target="500" data-suffix="+">0</span><p class="stat-p">Clients Served</p></div>
+    <div class="aos"><span class="counter" data-target="50" data-suffix="+">0</span><p class="stat-p">Clients Served</p></div>
     <div class="aos"><span class="counter" data-target="99" data-suffix=".9%">0</span><p class="stat-p">Uptime SLA</p></div>
     <div class="aos"><span class="counter" data-target="10" data-suffix=" Yrs">0</span><p class="stat-p">Experience</p></div>
     <div class="aos"><span class="counter" data-target="24" data-suffix="/7">0</span><p class="stat-p">Expert Support</p></div>
-    <div class="aos"><span class="counter" data-target="1200" data-suffix="+">0</span><p class="stat-p">Websites Hosted</p></div>
+    <div class="aos"><span class="counter" data-target="100" data-suffix="+">0</span><p class="stat-p">Websites Hosted</p></div>
   </div>
 </section>
 
@@ -104,7 +104,7 @@
         <p>Whether you need a new website, hosting, email setup or domain — our experts are ready to help.</p>
         <div class="cd"><i class="fas fa-envelope"></i><span><?=SITE_EMAIL?></span></div>
         <div class="cd"><i class="fas fa-phone"></i><span><?=SITE_PHONE?></span></div>
-        <div class="cd"><i class="fas fa-map-marker-alt"></i><span>Mumbai, Maharashtra, India</span></div>
+        <div class="cd"><i class="fas fa-map-marker-alt"></i><span>95, J P Road, Jiten CHS Ltd, B-902, Near Azad Nagar Metro, Andheri West, Mumbai - 400 058, Maharashtra, India</span></div>
         <div class="cd"><i class="fas fa-globe"></i><a href="<?=SITE_URL?>"><?=str_replace(['https://','http://'],'',SITE_URL)?></a></div>
       </div>
       <div class="cf aos">
