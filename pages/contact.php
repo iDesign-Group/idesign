@@ -10,7 +10,7 @@
         <div class="cd"><i class="fas fa-envelope"></i><span><?=SITE_EMAIL?></span></div>
         <div class="cd"><i class="fas fa-phone"></i><span><?=SITE_PHONE?></span></div>
         <div class="cd"><i class="fas fa-clock"></i><span>Mon&ndash;Sat: 9 AM &ndash; 7 PM IST</span></div>
-        <div class="cd"><i class="fas fa-map-marker-alt"></i><span>Mumbai, Maharashtra, India</span></div>
+        <div class="cd"><i class="fas fa-map-marker-alt"></i><span>95, J P Road, Jiten CHS Ltd, B-902, Near Azad Nagar Metro, Andheri West, Mumbai - 400 058, Maharashtra, India</span></div>
         <div class="cd"><i class="fas fa-globe"></i><a href="<?=SITE_URL?>"><?=str_replace(['https://','http://'],'',SITE_URL)?></a></div>
       </div>
       <div class="cf aos">
