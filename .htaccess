@@ -3,17 +3,30 @@ RewriteEngine On
 RewriteBase /
 
 # -----------------------------------------------
-# 301 Redirects: old pages/*.php → clean URLs
+# 301 Redirects: old pages/*.php -> clean URLs
+# THE_REQUEST = original browser request line,
+# so internal rewrites do NOT trigger these rules
 # -----------------------------------------------
-RewriteRule ^pages/hosting\.php$   /hosting   [R=301,L]
-RewriteRule ^pages/domains\.php$   /domains   [R=301,L]
-RewriteRule ^pages/webdesign\.php$ /webdesign [R=301,L]
-RewriteRule ^pages/email\.php$     /email     [R=301,L]
-RewriteRule ^pages/security\.php$  /security  [R=301,L]
-RewriteRule ^pages/contact\.php$   /contact   [R=301,L]
+RewriteCond %{THE_REQUEST} \s/+pages/hosting\.php [NC]
+RewriteRule ^ /hosting [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/+pages/domains\.php [NC]
+RewriteRule ^ /domains [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/+pages/webdesign\.php [NC]
+RewriteRule ^ /webdesign [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/+pages/email\.php [NC]
+RewriteRule ^ /email [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/+pages/security\.php [NC]
+RewriteRule ^ /security [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/+pages/contact\.php [NC]
+RewriteRule ^ /contact [R=301,L]
 
 # -----------------------------------------------
-# Clean URLs → internal rewrite to pages/*.php
+# Clean URLs -> internal rewrite to pages/*.php
 # -----------------------------------------------
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
@@ -40,6 +53,6 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^contact/?$   pages/contact.php   [L,QSA]
 
 # -----------------------------------------------
-# Root → index.php
+# Root -> index.php
 # -----------------------------------------------
 RewriteRule ^$ index.php [L,QSA]
