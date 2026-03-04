@@ -7,7 +7,7 @@ window.addEventListener('scroll',()=>nb.classList.toggle('scrolled',scrollY>60))
 const hbg=document.getElementById('hbg'),nls=document.getElementById('nls');
 hbg?.addEventListener('click',()=>{hbg.classList.toggle('open');nls.classList.toggle('open')});
 
-// Scroll reveal
+// Scroll reveal — also picks up server-rendered .fc.aos cards
 const obs=new IntersectionObserver(es=>{
   es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}})
 },{threshold:.13});
@@ -69,32 +69,26 @@ function runCounters(){
 const ss=document.querySelector('.stats');
 if(ss){const so=new IntersectionObserver(e=>{if(e[0].isIntersecting){runCounters();so.disconnect()}},{threshold:.5});so.observe(ss)}
 
-// ---- reCAPTCHA v3: fill hidden token input before form submits ----------
+// ---- reCAPTCHA v3: fill hidden token before native form submit -----------
 (function initRecaptcha(){
   const form=document.getElementById('cf');
   const rcInput=document.getElementById('rc-token');
   if(!form||!rcInput)return;
   function fillToken(){
     if(typeof grecaptcha==='undefined'||!RECAPTCHA_KEY||RECAPTCHA_KEY==='YOUR_SITE_KEY')return;
-    grecaptcha.ready(()=>{
-      grecaptcha.execute(RECAPTCHA_KEY,{action:'contact'})
-        .then(t=>{rcInput.value=t;})
-        .catch(()=>{});
-    });
+    grecaptcha.ready(()=>grecaptcha.execute(RECAPTCHA_KEY,{action:'contact'}).then(t=>{rcInput.value=t;}).catch(()=>{}));
   }
   fillToken();
   form.addEventListener('submit',function(e){
     if(typeof grecaptcha==='undefined'||!RECAPTCHA_KEY||RECAPTCHA_KEY==='YOUR_SITE_KEY')return;
     e.preventDefault();
-    grecaptcha.ready(()=>{
-      grecaptcha.execute(RECAPTCHA_KEY,{action:'contact'})
-        .then(t=>{ rcInput.value=t; form.submit(); })
-        .catch(()=>form.submit());
-    });
+    grecaptcha.ready(()=>grecaptcha.execute(RECAPTCHA_KEY,{action:'contact'})
+      .then(t=>{rcInput.value=t;form.submit();})
+      .catch(()=>form.submit()));
   });
 })();
 
-// ---- Domain search -------------------------------------------------------
+// ---- Domain search (GET request — WAF generally allows these) -----------
 const df=document.getElementById('df');
 if(df){df.addEventListener('submit',async e=>{
   e.preventDefault();
@@ -105,8 +99,7 @@ if(df){df.addEventListener('submit',async e=>{
   try{
     const r=await fetch('/api/domain_check.php?domain='+encodeURIComponent(q));
     const text=await r.text();
-    let j;
-    try{j=JSON.parse(text);}catch{res.innerHTML='<div class="ld">Search error. Please try again.</div>';return;}
+    let j;try{j=JSON.parse(text);}catch{res.innerHTML='<div class="ld">Search error. Please try again.</div>';return;}
     if(j.success)res.innerHTML=j.results.map(d=>`
       <div class="dr ${d.available?'av':'tk'}">
         <span class="dn">${d.domain}</span>
@@ -115,43 +108,5 @@ if(df){df.addEventListener('submit',async e=>{
         ${d.available?'<button class="btn-xs">Add to Cart</button>':''}
       </div>`).join('');
     else res.innerHTML='<div class="ld">'+j.message+'</div>';
-  }catch{res.innerHTML='<div class="ld">Search failed. Please try again.</div>'}
+  }catch{res.innerHTML='<div class="ld">Search failed. Please try again.</div>';}
 })}
-
-// ---- Service flip-cards --------------------------------------------------
-// Fetches from /assets/data/ (plain static folder) instead of /api/
-// to avoid WAF/Monarx intercepting requests to the /api/ path.
-const aobs=new IntersectionObserver(es=>{
-  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');aobs.unobserve(e.target)}})
-},{threshold:.13});
-
-async function loadSvc(id,cat){
-  const el=document.getElementById(id);if(!el)return;
-  try{
-    const r=await fetch('/assets/data/services.json');
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    const d=await r.json();
-    el.innerHTML=(d[cat]||[]).map(s=>`
-      <div class="fc aos">
-        <div class="fc-in">
-          <div class="fc-f">
-            <div class="svc-icon"><i class="fas ${s.icon}"></i></div>
-            <h3>${s.name}</h3>
-            <p class="tl">${s.tagline||''}</p>
-            <div class="price">${s.price}</div>
-            <span class="flip-tip">Hover to see features →</span>
-          </div>
-          <div class="fc-b">
-            <h3>${s.name}</h3>
-            <ul>${s.features.map(f=>`<li><i class="fas fa-check"></i>${f}</li>`).join('')}</ul>
-            <a href="/contact?service=${s.id}" class="btn-sm">Get Started</a>
-          </div>
-        </div>
-      </div>`).join('');
-    el.querySelectorAll('.aos').forEach(x=>aobs.observe(x));
-  }catch(err){
-    console.error('loadSvc error:',err);
-    el.innerHTML='<p style="color:var(--grey)">Failed to load. Refresh page.</p>';
-  }
-}
-document.querySelectorAll('[data-svc]').forEach(el=>loadSvc(el.id,el.dataset.svc));

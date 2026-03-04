@@ -1,4 +1,8 @@
-<?php $pt="Web Design, Hosting, Email & Domain Services Mumbai"; require_once __DIR__.'/includes/header.php'; ?>
+<?php
+$pt = 'Web Design, Hosting, Email & Domain Services Mumbai';
+require_once __DIR__.'/includes/header.php';
+require_once __DIR__.'/includes/services.php';
+?>
 
 <section class="hero">
   <canvas id="pCanvas"></canvas>
@@ -31,7 +35,9 @@
       <h2 class="sec-title">Hosting Plans for <span>Every Need</span></h2>
       <p class="sec-desc">High-performance hosting backed by enterprise-grade infrastructure and 99.9% uptime SLA.</p>
     </div>
-    <div class="grid-sv" id="hSvc" data-svc="hosting"></div>
+    <div class="grid-sv">
+      <?php render_services('hosting'); ?>
+    </div>
   </div>
 </section>
 
@@ -58,7 +64,9 @@
       <h2 class="sec-title">Professional <span>Email</span> Solutions</h2>
       <p class="sec-desc">Branded email hosting with enterprise security and seamless device sync.</p>
     </div>
-    <div class="grid-sv" id="eSvc" data-svc="email"></div>
+    <div class="grid-sv">
+      <?php render_services('email'); ?>
+    </div>
   </div>
 </section>
 
@@ -68,7 +76,9 @@
       <h2 class="sec-title">Protect What <span>Matters</span></h2>
       <p class="sec-desc">SSL certificates and automated backups keep your business data safe 24/7.</p>
     </div>
-    <div class="grid-sv" id="sSvc" data-svc="security"></div>
+    <div class="grid-sv">
+      <?php render_services('security'); ?>
+    </div>
   </div>
 </section>
 
