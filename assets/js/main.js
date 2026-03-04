@@ -69,67 +69,36 @@ function runCounters(){
 const ss=document.querySelector('.stats');
 if(ss){const so=new IntersectionObserver(e=>{if(e[0].isIntersecting){runCounters();so.disconnect()}},{threshold:.5});so.observe(ss)}
 
-// ---- reCAPTCHA v3 helper ------------------------------------------------
-async function getRecaptchaToken(action='contact'){
-  return new Promise(resolve=>{
-    if(typeof grecaptcha==='undefined'||!RECAPTCHA_KEY||RECAPTCHA_KEY==='YOUR_SITE_KEY')return resolve('');
+// ---- reCAPTCHA v3: fill hidden token input before form submits ----------
+// Form POSTs natively (no AJAX) so WAF sees a normal browser request.
+// JS only fills the hidden #rc-token field just before submit.
+(function initRecaptcha(){
+  const form=document.getElementById('cf');
+  const rcInput=document.getElementById('rc-token');
+  if(!form||!rcInput)return;
+  // Pre-fill token on page load
+  function fillToken(){
+    if(typeof grecaptcha==='undefined'||!RECAPTCHA_KEY||RECAPTCHA_KEY==='YOUR_SITE_KEY')return;
     grecaptcha.ready(()=>{
-      grecaptcha.execute(RECAPTCHA_KEY,{action})
-        .then(resolve)
-        .catch(()=>resolve(''));
+      grecaptcha.execute(RECAPTCHA_KEY,{action:'contact'})
+        .then(t=>{rcInput.value=t;})
+        .catch(()=>{});
+    });
+  }
+  fillToken();
+  // Refresh token on submit (tokens expire after 2 mins)
+  form.addEventListener('submit',function(e){
+    if(typeof grecaptcha==='undefined'||!RECAPTCHA_KEY||RECAPTCHA_KEY==='YOUR_SITE_KEY')return;
+    e.preventDefault();
+    grecaptcha.ready(()=>{
+      grecaptcha.execute(RECAPTCHA_KEY,{action:'contact'})
+        .then(t=>{ rcInput.value=t; form.submit(); })
+        .catch(()=>form.submit());
     });
   });
-}
+})();
 
-// ---- Safe JSON parse helper ---------------------------------------------
-async function safeJson(response){
-  const text=await response.text();
-  try{return JSON.parse(text);}
-  catch(e){
-    console.error('Non-JSON response from server:',text);
-    return{success:false,message:'Server error. Check console for details.'};
-  }
-}
-
-// ---- Contact form (index.php + contact.php) -----------------------------
-// Uses URLSearchParams (application/x-www-form-urlencoded) instead of
-// FormData (multipart) to avoid WAF/SiteLock blocking POST requests.
-const cf=document.getElementById('cf');
-if(cf){cf.addEventListener('submit',async e=>{
-  e.preventDefault();
-  const btn=cf.querySelector('button[type=submit]'),st=document.getElementById('fst');
-  btn.disabled=true;
-  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending…';
-  try{
-    const token=await getRecaptchaToken('contact');
-    // Build URLSearchParams from form fields
-    const fd=new FormData(cf);
-    const params=new URLSearchParams();
-    for(const [k,v] of fd.entries()) params.append(k,v);
-    params.append('g-recaptcha-response',token);
-    const r=await fetch('/api/contact.php',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/x-www-form-urlencoded',
-        'X-Requested-With':'XMLHttpRequest'
-      },
-      body:params.toString()
-    });
-    const j=await safeJson(r);
-    st.className='fst '+(j.success?'ok':'er');
-    st.textContent=j.message;
-    if(j.success)cf.reset();
-  }catch(err){
-    console.error('Contact form error:',err);
-    st.className='fst er';
-    st.textContent='Connection error. Please check your internet and try again.';
-  }finally{
-    btn.disabled=false;
-    btn.innerHTML='<span>Send Message</span><i class="fas fa-paper-plane"></i>';
-  }
-})}
-
-// ---- Domain search -------------------------------------------------------
+// ---- Domain search (AJAX — GET request, WAF usually allows these) --------
 const df=document.getElementById('df');
 if(df){df.addEventListener('submit',async e=>{
   e.preventDefault();
@@ -138,10 +107,10 @@ if(df){df.addEventListener('submit',async e=>{
   if(!q)return;
   res.innerHTML='<div class="ld"><i class="fas fa-spinner fa-spin"></i> Searching…</div>';
   try{
-    const r=await fetch('/api/domain_check.php?domain='+encodeURIComponent(q),{
-      headers:{'X-Requested-With':'XMLHttpRequest'}
-    });
-    const j=await safeJson(r);
+    const r=await fetch('/api/domain_check.php?domain='+encodeURIComponent(q));
+    const text=await r.text();
+    let j;
+    try{j=JSON.parse(text);}catch{res.innerHTML='<div class="ld">Search error. Please try again.</div>';return;}
     if(j.success)res.innerHTML=j.results.map(d=>`
       <div class="dr ${d.available?'av':'tk'}">
         <span class="dn">${d.domain}</span>

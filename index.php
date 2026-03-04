@@ -17,11 +17,11 @@
 
 <section class="stats">
   <div class="stats-g">
-    <div class="aos"><span class="counter" data-target="50" data-suffix="+">0</span><p class="stat-p">Clients Served</p></div>
+    <div class="aos"><span class="counter" data-target="500" data-suffix="+">0</span><p class="stat-p">Clients Served</p></div>
     <div class="aos"><span class="counter" data-target="99" data-suffix=".9%">0</span><p class="stat-p">Uptime SLA</p></div>
     <div class="aos"><span class="counter" data-target="10" data-suffix=" Yrs">0</span><p class="stat-p">Experience</p></div>
     <div class="aos"><span class="counter" data-target="24" data-suffix="/7">0</span><p class="stat-p">Expert Support</p></div>
-    <div class="aos"><span class="counter" data-target="100" data-suffix="+">0</span><p class="stat-p">Websites Hosted</p></div>
+    <div class="aos"><span class="counter" data-target="1200" data-suffix="+">0</span><p class="stat-p">Websites Hosted</p></div>
   </div>
 </section>
 
@@ -98,36 +98,9 @@
       <h2 class="sec-title">Ready to <span>Launch?</span></h2>
       <p class="sec-desc">Tell us about your project and let's build something amazing together.</p>
     </div>
-    <div class="cg">
-      <div class="ci aos">
-        <h3>Let's Talk Business</h3>
-        <p>Whether you need a new website, hosting, email setup or domain — our experts are ready to help.</p>
-        <div class="cd"><i class="fas fa-envelope"></i><span><?=SITE_EMAIL?></span></div>
-        <div class="cd"><i class="fas fa-phone"></i><span><?=SITE_PHONE?></span></div>
-        <div class="cd"><i class="fas fa-map-marker-alt"></i><span>95, J P Road, Jiten CHS Ltd, B-902, Near Azad Nagar Metro, Andheri West, Mumbai - 400 058, Maharashtra, India</span></div>
-        <div class="cd"><i class="fas fa-globe"></i><a href="<?=SITE_URL?>"><?=str_replace(['https://','http://'],'',SITE_URL)?></a></div>
-      </div>
-      <div class="cf aos">
-        <form id="cf" novalidate>
-          <div class="fr">
-            <div class="fg"><label>Full Name *</label><input type="text" name="name" placeholder="Your Name" required/></div>
-            <div class="fg"><label>Email *</label><input type="email" name="email" placeholder="you@domain.com" required/></div>
-          </div>
-          <div class="fg"><label>Service</label>
-            <select name="service">
-              <option value="">Select a service…</option>
-              <option>Web Designing</option><option>Shared Hosting</option>
-              <option>Dedicated Server</option><option>WordPress Hosting</option>
-              <option>Cloud Hosting</option><option>Email Services</option>
-              <option>Domain Names</option><option>SSL Certificate</option>
-              <option>Backup Service</option>
-            </select>
-          </div>
-          <div class="fg"><label>Message *</label><textarea name="message" placeholder="Tell us about your requirements…" required></textarea></div>
-          <button type="submit" class="btn btn-red fs"><span>Send Message</span><i class="fas fa-paper-plane"></i></button>
-          <div id="fst"></div>
-        </form>
-      </div>
+    <div style="text-align:center;padding:2rem 0;">
+      <p style="color:var(--grey);margin-bottom:1.5rem;max-width:500px;margin-inline:auto;">Whether you need a new website, hosting, email setup or domain &mdash; our experts are ready to help.</p>
+      <a href="/contact" class="btn btn-red"><span>Start a Conversation</span><i class="fas fa-arrow-right"></i></a>
     </div>
   </div>
 </section>
