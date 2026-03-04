@@ -70,16 +70,25 @@ const ss=document.querySelector('.stats');
 if(ss){const so=new IntersectionObserver(e=>{if(e[0].isIntersecting){runCounters();so.disconnect()}},{threshold:.5});so.observe(ss)}
 
 // ---- reCAPTCHA v3 helper ------------------------------------------------
-// Returns a Promise that resolves with the token (or '' if reCAPTCHA not loaded)
 async function getRecaptchaToken(action='contact'){
   return new Promise(resolve=>{
-    if(typeof grecaptcha==='undefined'||!RECAPTCHA_KEY)return resolve('');
+    if(typeof grecaptcha==='undefined'||!RECAPTCHA_KEY||RECAPTCHA_KEY==='YOUR_SITE_KEY')return resolve('');
     grecaptcha.ready(()=>{
       grecaptcha.execute(RECAPTCHA_KEY,{action})
         .then(resolve)
         .catch(()=>resolve(''));
     });
   });
+}
+
+// ---- Safe JSON parse helper ---------------------------------------------
+async function safeJson(response){
+  const text = await response.text();
+  try{ return JSON.parse(text); }
+  catch(e){
+    console.error('Non-JSON response from server:',text);
+    return {success:false,message:'Server error. Check console for details.'};
+  }
 }
 
 // ---- Contact form (index.php + contact.php) -----------------------------
@@ -90,16 +99,18 @@ if(cf){cf.addEventListener('submit',async e=>{
   btn.disabled=true;
   btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending…';
   try{
-    // Get reCAPTCHA v3 token before sending
     const token=await getRecaptchaToken('contact');
     const fd=new FormData(cf);
     fd.append('g-recaptcha-response',token);
     const r=await fetch('/api/contact.php',{method:'POST',body:fd});
-    const j=await r.json();
-    st.className='fst '+(j.success?'ok':'er');st.textContent=j.message;
+    const j=await safeJson(r);
+    st.className='fst '+(j.success?'ok':'er');
+    st.textContent=j.message;
     if(j.success)cf.reset();
-  }catch{
-    st.className='fst er';st.textContent='Something went wrong. Please try again.';
+  }catch(err){
+    console.error('Contact form error:',err);
+    st.className='fst er';
+    st.textContent='Connection error. Please check your internet and try again.';
   }finally{
     btn.disabled=false;
     btn.innerHTML='<span>Send Message</span><i class="fas fa-paper-plane"></i>';
@@ -116,7 +127,7 @@ if(df){df.addEventListener('submit',async e=>{
   res.innerHTML='<div class="ld"><i class="fas fa-spinner fa-spin"></i> Searching…</div>';
   try{
     const r=await fetch('/api/domain_check.php?domain='+encodeURIComponent(q));
-    const j=await r.json();
+    const j=await safeJson(r);
     if(j.success)res.innerHTML=j.results.map(d=>`
       <div class="dr ${d.available?'av':'tk'}">
         <span class="dn">${d.domain}</span>
