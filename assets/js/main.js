@@ -83,15 +83,17 @@ async function getRecaptchaToken(action='contact'){
 
 // ---- Safe JSON parse helper ---------------------------------------------
 async function safeJson(response){
-  const text = await response.text();
-  try{ return JSON.parse(text); }
+  const text=await response.text();
+  try{return JSON.parse(text);}
   catch(e){
     console.error('Non-JSON response from server:',text);
-    return {success:false,message:'Server error. Check console for details.'};
+    return{success:false,message:'Server error. Check console for details.'};
   }
 }
 
 // ---- Contact form (index.php + contact.php) -----------------------------
+// Uses URLSearchParams (application/x-www-form-urlencoded) instead of
+// FormData (multipart) to avoid WAF/SiteLock blocking POST requests.
 const cf=document.getElementById('cf');
 if(cf){cf.addEventListener('submit',async e=>{
   e.preventDefault();
@@ -100,9 +102,19 @@ if(cf){cf.addEventListener('submit',async e=>{
   btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending…';
   try{
     const token=await getRecaptchaToken('contact');
+    // Build URLSearchParams from form fields
     const fd=new FormData(cf);
-    fd.append('g-recaptcha-response',token);
-    const r=await fetch('/api/contact.php',{method:'POST',body:fd});
+    const params=new URLSearchParams();
+    for(const [k,v] of fd.entries()) params.append(k,v);
+    params.append('g-recaptcha-response',token);
+    const r=await fetch('/api/contact.php',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/x-www-form-urlencoded',
+        'X-Requested-With':'XMLHttpRequest'
+      },
+      body:params.toString()
+    });
     const j=await safeJson(r);
     st.className='fst '+(j.success?'ok':'er');
     st.textContent=j.message;
@@ -126,7 +138,9 @@ if(df){df.addEventListener('submit',async e=>{
   if(!q)return;
   res.innerHTML='<div class="ld"><i class="fas fa-spinner fa-spin"></i> Searching…</div>';
   try{
-    const r=await fetch('/api/domain_check.php?domain='+encodeURIComponent(q));
+    const r=await fetch('/api/domain_check.php?domain='+encodeURIComponent(q),{
+      headers:{'X-Requested-With':'XMLHttpRequest'}
+    });
     const j=await safeJson(r);
     if(j.success)res.innerHTML=j.results.map(d=>`
       <div class="dr ${d.available?'av':'tk'}">

@@ -1,21 +1,29 @@
 # Disable Imunify360 / ModSecurity for all API endpoints
-# These are AJAX calls (fetch/XHR) that return JSON — the bot challenge
-# script (409 Conflict) breaks them completely.
-
 <IfModule mod_security2.c>
     SecRuleEngine Off
 </IfModule>
-
 <IfModule mod_security.c>
     SecFilterEngine Off
     SecFilterScanPOST Off
 </IfModule>
 
-# Ensure correct Content-Type for JSON responses
-<FilesMatch "\.php$">
-    Header set X-Content-Type-Options nosniff
-</FilesMatch>
+# Mark requests as AJAX so WAF skips browser JS challenge
+SetEnvIfNoCase X-Requested-With XMLHttpRequest ajax_request
 
-# Prevent browser from caching API responses
+# Allow CORS for same-origin AJAX
+Header always set Access-Control-Allow-Origin "https://www.idesigngroup.co.in"
+Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type, X-Requested-With"
+
+# Handle OPTIONS preflight
+RewriteEngine On
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule .* - [R=200,L]
+
+# Prevent caching
 Header set Cache-Control "no-store, no-cache, must-revalidate"
 Header set Pragma "no-cache"
+
+# Ensure PHP errors don't leak into JSON responses
+php_flag display_errors Off
+php_value error_reporting 0
