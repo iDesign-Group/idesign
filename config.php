@@ -1,8 +1,8 @@
 <?php
 define('SITE_NAME',  'iDesign');
 define('SITE_URL',   'https://www.idesigngroup.co.in');
-define('SITE_EMAIL', 'info@idesigngroup.co.in');
-define('SITE_PHONE', '+91 99999 99999');
+define('SITE_EMAIL', 'vikram@idesigngroup.co.in');
+define('SITE_PHONE', '+91 99309 46132');
 
 // ResellerClub API
 define('RC_USERID', '232897');
@@ -14,8 +14,8 @@ define('GA4_ID', 'G-XXXXXXXXXX');
 // Google reCAPTCHA v3
 // Get keys at: https://www.google.com/recaptcha/admin/create
 // Choose: reCAPTCHA v3 | Domain: idesigngroup.co.in
-define('RECAPTCHA_SITE_KEY',   'YOUR_SITE_KEY');
-define('RECAPTCHA_SECRET_KEY', 'YOUR_SECRET_KEY');
+define('RECAPTCHA_SITE_KEY',   '6Le3SH8sAAAAAKWg6AqCW8J4lHcM_pH91z-YDNdR');
+define('RECAPTCHA_SECRET_KEY', '6Le3SH8sAAAAAIv8CM6VuwCseIzwqIWdzCHD8E9K');
 
 // Per-page SEO data
 define('SEO_PAGES', [
