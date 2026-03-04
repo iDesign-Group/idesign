@@ -47,19 +47,11 @@ img{max-width:100%;display:block}
 .nav-logo-img{
   height:100px;width:auto;max-width:280px;display:block;
   object-fit:contain;
-  filter:
-    drop-shadow(0 0 5px rgba(220,30,30,.7))
-    drop-shadow(0 0 14px rgba(220,30,30,.4))
-    brightness(1.05);
-  mix-blend-mode:multiply;border-radius:4px;
-  transition:height .4s ease,filter .4s ease;
+  mix-blend-mode:multiply;
+  transition:height .4s ease;
 }
 .navbar.scrolled .nav-logo-img{
   height:75px;
-  filter:
-    drop-shadow(0 0 7px rgba(220,30,30,.85))
-    drop-shadow(0 0 20px rgba(220,30,30,.5))
-    brightness(1.08);
 }
 .nav-links{display:flex;align-items:center;gap:.4rem}
 .nav-a{font-size:.9rem;font-weight:600;padding:.5rem 1rem;border-radius:6px;
