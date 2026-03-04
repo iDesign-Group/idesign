@@ -70,13 +70,10 @@ const ss=document.querySelector('.stats');
 if(ss){const so=new IntersectionObserver(e=>{if(e[0].isIntersecting){runCounters();so.disconnect()}},{threshold:.5});so.observe(ss)}
 
 // ---- reCAPTCHA v3: fill hidden token input before form submits ----------
-// Form POSTs natively (no AJAX) so WAF sees a normal browser request.
-// JS only fills the hidden #rc-token field just before submit.
 (function initRecaptcha(){
   const form=document.getElementById('cf');
   const rcInput=document.getElementById('rc-token');
   if(!form||!rcInput)return;
-  // Pre-fill token on page load
   function fillToken(){
     if(typeof grecaptcha==='undefined'||!RECAPTCHA_KEY||RECAPTCHA_KEY==='YOUR_SITE_KEY')return;
     grecaptcha.ready(()=>{
@@ -86,7 +83,6 @@ if(ss){const so=new IntersectionObserver(e=>{if(e[0].isIntersecting){runCounters
     });
   }
   fillToken();
-  // Refresh token on submit (tokens expire after 2 mins)
   form.addEventListener('submit',function(e){
     if(typeof grecaptcha==='undefined'||!RECAPTCHA_KEY||RECAPTCHA_KEY==='YOUR_SITE_KEY')return;
     e.preventDefault();
@@ -98,7 +94,7 @@ if(ss){const so=new IntersectionObserver(e=>{if(e[0].isIntersecting){runCounters
   });
 })();
 
-// ---- Domain search (AJAX — GET request, WAF usually allows these) --------
+// ---- Domain search -------------------------------------------------------
 const df=document.getElementById('df');
 if(df){df.addEventListener('submit',async e=>{
   e.preventDefault();
@@ -123,6 +119,8 @@ if(df){df.addEventListener('submit',async e=>{
 })}
 
 // ---- Service flip-cards --------------------------------------------------
+// Fetches from /assets/data/ (plain static folder) instead of /api/
+// to avoid WAF/Monarx intercepting requests to the /api/ path.
 const aobs=new IntersectionObserver(es=>{
   es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');aobs.unobserve(e.target)}})
 },{threshold:.13});
@@ -130,7 +128,9 @@ const aobs=new IntersectionObserver(es=>{
 async function loadSvc(id,cat){
   const el=document.getElementById(id);if(!el)return;
   try{
-    const r=await fetch('/api/services.json');const d=await r.json();
+    const r=await fetch('/assets/data/services.json');
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const d=await r.json();
     el.innerHTML=(d[cat]||[]).map(s=>`
       <div class="fc aos">
         <div class="fc-in">
@@ -149,6 +149,9 @@ async function loadSvc(id,cat){
         </div>
       </div>`).join('');
     el.querySelectorAll('.aos').forEach(x=>aobs.observe(x));
-  }catch(err){el.innerHTML='<p style="color:var(--grey)">Failed to load. Refresh page.</p>'}
+  }catch(err){
+    console.error('loadSvc error:',err);
+    el.innerHTML='<p style="color:var(--grey)">Failed to load. Refresh page.</p>';
+  }
 }
 document.querySelectorAll('[data-svc]').forEach(el=>loadSvc(el.id,el.dataset.svc));
