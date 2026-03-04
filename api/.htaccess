@@ -1,0 +1,21 @@
+# Disable Imunify360 / ModSecurity for all API endpoints
+# These are AJAX calls (fetch/XHR) that return JSON — the bot challenge
+# script (409 Conflict) breaks them completely.
+
+<IfModule mod_security2.c>
+    SecRuleEngine Off
+</IfModule>
+
+<IfModule mod_security.c>
+    SecFilterEngine Off
+    SecFilterScanPOST Off
+</IfModule>
+
+# Ensure correct Content-Type for JSON responses
+<FilesMatch "\.php$">
+    Header set X-Content-Type-Options nosniff
+</FilesMatch>
+
+# Prevent browser from caching API responses
+Header set Cache-Control "no-store, no-cache, must-revalidate"
+Header set Pragma "no-cache"
