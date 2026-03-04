@@ -11,6 +11,7 @@ $meta_ttl  = isset($pt) ? $pt.' | '.SITE_NAME : SITE_NAME;
 $canonical = rtrim(SITE_URL, '/') . $_path;
 $og_image  = isset($og_img) ? $og_img : rtrim(SITE_URL, '/').'/assets/images/og-image.jpg';
 $ga4_id    = defined('GA4_ID') ? GA4_ID : 'G-XXXXXXXXXX';
+$rc_site   = defined('RECAPTCHA_SITE_KEY') ? RECAPTCHA_SITE_KEY : '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,6 +81,12 @@ $ga4_id    = defined('GA4_ID') ? GA4_ID : 'G-XXXXXXXXXX';
     gtag('js',new Date());
     gtag('config','<?=$ga4_id?>');
   </script>
+
+  <!-- Google reCAPTCHA v3 -->
+<?php if($rc_site && $rc_site !== 'YOUR_SITE_KEY'): ?>
+  <script src="https://www.google.com/recaptcha/api.js?render=<?=htmlspecialchars($rc_site)?>"></script>
+<?php endif; ?>
+  <script>const RECAPTCHA_KEY='<?=htmlspecialchars($rc_site)?>';</script>
 
   <link rel="icon" href="<?=$root?>assets/images/logo.png" type="image/png"/>
   <link rel="stylesheet" href="<?=$root?>assets/css/style.css"/>

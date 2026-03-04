@@ -69,22 +69,44 @@ function runCounters(){
 const ss=document.querySelector('.stats');
 if(ss){const so=new IntersectionObserver(e=>{if(e[0].isIntersecting){runCounters();so.disconnect()}},{threshold:.5});so.observe(ss)}
 
-// AJAX contact form
+// ---- reCAPTCHA v3 helper ------------------------------------------------
+// Returns a Promise that resolves with the token (or '' if reCAPTCHA not loaded)
+async function getRecaptchaToken(action='contact'){
+  return new Promise(resolve=>{
+    if(typeof grecaptcha==='undefined'||!RECAPTCHA_KEY)return resolve('');
+    grecaptcha.ready(()=>{
+      grecaptcha.execute(RECAPTCHA_KEY,{action})
+        .then(resolve)
+        .catch(()=>resolve(''));
+    });
+  });
+}
+
+// ---- Contact form (index.php + contact.php) -----------------------------
 const cf=document.getElementById('cf');
 if(cf){cf.addEventListener('submit',async e=>{
   e.preventDefault();
   const btn=cf.querySelector('button[type=submit]'),st=document.getElementById('fst');
-  btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending…';
+  btn.disabled=true;
+  btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Sending…';
   try{
-    const r=await fetch('/api/contact.php',{method:'POST',body:new FormData(cf)});
+    // Get reCAPTCHA v3 token before sending
+    const token=await getRecaptchaToken('contact');
+    const fd=new FormData(cf);
+    fd.append('g-recaptcha-response',token);
+    const r=await fetch('/api/contact.php',{method:'POST',body:fd});
     const j=await r.json();
     st.className='fst '+(j.success?'ok':'er');st.textContent=j.message;
     if(j.success)cf.reset();
-  }catch{st.className='fst er';st.textContent='Something went wrong. Please try again.'}
-  finally{btn.disabled=false;btn.innerHTML='<span>Send Message</span><i class="fas fa-paper-plane"></i>'}
+  }catch{
+    st.className='fst er';st.textContent='Something went wrong. Please try again.';
+  }finally{
+    btn.disabled=false;
+    btn.innerHTML='<span>Send Message</span><i class="fas fa-paper-plane"></i>';
+  }
 })}
 
-// AJAX domain search
+// ---- Domain search -------------------------------------------------------
 const df=document.getElementById('df');
 if(df){df.addEventListener('submit',async e=>{
   e.preventDefault();
@@ -106,7 +128,7 @@ if(df){df.addEventListener('submit',async e=>{
   }catch{res.innerHTML='<div class="ld">Search failed. Please try again.</div>'}
 })}
 
-// Load service flip-cards from JSON
+// ---- Service flip-cards --------------------------------------------------
 const aobs=new IntersectionObserver(es=>{
   es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');aobs.unobserve(e.target)}})
 },{threshold:.13});

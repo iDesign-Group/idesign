@@ -8,10 +8,16 @@ define('SITE_PHONE', '+91 99999 99999');
 define('RC_USERID', '232897');
 define('RC_APIKEY', 'jIyVGqbtlkCtehqVoO5D8y9Wp8aQVkm7');
 
-// Google Analytics 4 — replace with your real Measurement ID
+// Google Analytics 4 — replace with your Measurement ID
 define('GA4_ID', 'G-XXXXXXXXXX');
 
-// Per-page SEO: description + keywords keyed by clean URL path
+// Google reCAPTCHA v3
+// Get keys at: https://www.google.com/recaptcha/admin/create
+// Choose: reCAPTCHA v3 | Domain: idesigngroup.co.in
+define('RECAPTCHA_SITE_KEY',   'YOUR_SITE_KEY');
+define('RECAPTCHA_SECRET_KEY', 'YOUR_SECRET_KEY');
+
+// Per-page SEO data
 define('SEO_PAGES', [
     '/' => [
         'desc' => 'iDesign is Mumbai\'s #1 digital agency offering web design, hosting, domain registration, business email and SSL security. 500+ clients served with 99.9% uptime.',
