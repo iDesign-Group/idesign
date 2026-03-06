@@ -1,13 +1,9 @@
-<?php
-$pt = 'Web Design, Hosting, Email & Domain Services Mumbai';
-require_once __DIR__.'/includes/header.php';
-require_once __DIR__.'/includes/services.php';
-?>
+<?php $pt="Web Design, Hosting, Email & Domain Services Mumbai"; require_once __DIR__.'/includes/header.php'; ?>
 
 <section class="hero">
   <canvas id="pCanvas"></canvas>
   <div class="hero-body">
-    <div class="badge"><i class="fas fa-bolt"></i>&nbsp;Mumbai's #1 Digital Agency</div>
+    <div class="badge"><i class="fas fa-bolt"></i>&nbsp;Mumbai's Digital Agency</div>
     <h1>We Power Your <span>Digital</span> World</h1>
     <div class="hero-sub">Expert in&nbsp;<span id="typed"></span></div>
     <p class="hero-p">From blazing-fast web hosting to cutting-edge web design, email solutions and domain management &mdash; all under one roof.</p>
@@ -21,11 +17,11 @@ require_once __DIR__.'/includes/services.php';
 
 <section class="stats">
   <div class="stats-g">
-    <div class="aos"><span class="counter" data-target="500" data-suffix="+">0</span><p class="stat-p">Clients Served</p></div>
+    <div class="aos"><span class="counter" data-target="50" data-suffix="+">0</span><p class="stat-p">Clients Served</p></div>
     <div class="aos"><span class="counter" data-target="99" data-suffix=".9%">0</span><p class="stat-p">Uptime SLA</p></div>
     <div class="aos"><span class="counter" data-target="10" data-suffix=" Yrs">0</span><p class="stat-p">Experience</p></div>
-    <div class="aos"><span class="counter" data-target="24" data-suffix="/7">0</span><p class="stat-p">Expert Support</p></div>
-    <div class="aos"><span class="counter" data-target="1200" data-suffix="+">0</span><p class="stat-p">Websites Hosted</p></div>
+    <div class="aos"><span class="counter" data-target="24" data-suffix="/ 7">0</span><p class="stat-p">Expert Support</p></div>
+    <div class="aos"><span class="counter" data-target="100" data-suffix="+">0</span><p class="stat-p">Websites Hosted</p></div>
   </div>
 </section>
 
@@ -35,9 +31,7 @@ require_once __DIR__.'/includes/services.php';
       <h2 class="sec-title">Hosting Plans for <span>Every Need</span></h2>
       <p class="sec-desc">High-performance hosting backed by enterprise-grade infrastructure and 99.9% uptime SLA.</p>
     </div>
-    <div class="grid-sv">
-      <?php render_services('hosting'); ?>
-    </div>
+    <div class="grid-sv" id="hSvc" data-svc="hosting"></div>
   </div>
 </section>
 
@@ -64,9 +58,7 @@ require_once __DIR__.'/includes/services.php';
       <h2 class="sec-title">Professional <span>Email</span> Solutions</h2>
       <p class="sec-desc">Branded email hosting with enterprise security and seamless device sync.</p>
     </div>
-    <div class="grid-sv">
-      <?php render_services('email'); ?>
-    </div>
+    <div class="grid-sv" id="eSvc" data-svc="email"></div>
   </div>
 </section>
 
@@ -76,9 +68,7 @@ require_once __DIR__.'/includes/services.php';
       <h2 class="sec-title">Protect What <span>Matters</span></h2>
       <p class="sec-desc">SSL certificates and automated backups keep your business data safe 24/7.</p>
     </div>
-    <div class="grid-sv">
-      <?php render_services('security'); ?>
-    </div>
+    <div class="grid-sv" id="sSvc" data-svc="security"></div>
   </div>
 </section>
 

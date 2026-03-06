@@ -59,7 +59,7 @@ $rc_site   = defined('RECAPTCHA_SITE_KEY') ? RECAPTCHA_SITE_KEY : '';
       "@type": "PostalAddress",
       "addressLocality": "Mumbai",
       "addressRegion": "Maharashtra",
-      "postalCode": "400000",
+      "postalCode": "400058",
       "addressCountry": "IN"
     },
     "telephone": "<?=SITE_PHONE?>",
