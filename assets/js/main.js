@@ -59,18 +59,14 @@ if(te){
 function runCounters(){
   document.querySelectorAll('.counter').forEach(el=>{
     const tgt=+el.dataset.target,sfx=el.dataset.suffix||'';
-    // clear any running interval
     if(el._cTimer)clearInterval(el._cTimer);
     el.textContent='0';
-    el.classList.remove('counter-glow');
     let cur=0;const step=tgt/80;
     el._cTimer=setInterval(()=>{
       cur+=step;
       if(cur>=tgt){
         el.textContent=tgt+sfx;
         clearInterval(el._cTimer);
-        // fire glow once count finishes
-        el.classList.add('counter-glow');
       } else {
         el.textContent=Math.ceil(cur)+sfx;
       }
@@ -80,16 +76,13 @@ function runCounters(){
 
 const ss=document.querySelector('.stats');
 if(ss){
-  // Use threshold:0.4 so it fires nicely both ways
   const so=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting) runCounters();
-    });
+    entries.forEach(e=>{ if(e.isIntersecting) runCounters(); });
   },{threshold:0.4});
   so.observe(ss);
 }
 
-// ---- reCAPTCHA v3: fill hidden token input before form submits ----------
+// ---- reCAPTCHA v3 --------------------------------------------------------
 (function initRecaptcha(){
   const form=document.getElementById('cf');
   const rcInput=document.getElementById('rc-token');
