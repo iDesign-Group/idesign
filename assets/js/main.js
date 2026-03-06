@@ -55,19 +55,39 @@ if(te){
   })();
 }
 
-// Counters
+// Counters — re-triggers every time stats section enters viewport
 function runCounters(){
   document.querySelectorAll('.counter').forEach(el=>{
     const tgt=+el.dataset.target,sfx=el.dataset.suffix||'';
+    // clear any running interval
+    if(el._cTimer)clearInterval(el._cTimer);
+    el.textContent='0';
+    el.classList.remove('counter-glow');
     let cur=0;const step=tgt/80;
-    const t=setInterval(()=>{cur+=step;
-      if(cur>=tgt){el.textContent=tgt+sfx;clearInterval(t)}
-      else el.textContent=Math.ceil(cur)+sfx;
+    el._cTimer=setInterval(()=>{
+      cur+=step;
+      if(cur>=tgt){
+        el.textContent=tgt+sfx;
+        clearInterval(el._cTimer);
+        // fire glow once count finishes
+        el.classList.add('counter-glow');
+      } else {
+        el.textContent=Math.ceil(cur)+sfx;
+      }
     },20);
   });
 }
+
 const ss=document.querySelector('.stats');
-if(ss){const so=new IntersectionObserver(e=>{if(e[0].isIntersecting){runCounters();so.disconnect()}},{threshold:.5});so.observe(ss)}
+if(ss){
+  // Use threshold:0.4 so it fires nicely both ways
+  const so=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) runCounters();
+    });
+  },{threshold:0.4});
+  so.observe(ss);
+}
 
 // ---- reCAPTCHA v3: fill hidden token input before form submits ----------
 (function initRecaptcha(){
@@ -119,8 +139,6 @@ if(df){df.addEventListener('submit',async e=>{
 })}
 
 // ---- Service flip-cards --------------------------------------------------
-// Fetches from /assets/data/ (plain static folder) instead of /api/
-// to avoid WAF/Monarx intercepting requests to the /api/ path.
 const aobs=new IntersectionObserver(es=>{
   es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');aobs.unobserve(e.target)}})
 },{threshold:.13});
