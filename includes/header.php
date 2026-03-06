@@ -91,7 +91,8 @@ $rc_site   = defined('RECAPTCHA_SITE_KEY') ? RECAPTCHA_SITE_KEY : '';
   <link rel="icon" href="<?=$root?>assets/images/logo.png" type="image/png"/>
   <link rel="stylesheet" href="<?=$root?>assets/css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <!-- Fonts: removed wght 300 (too light), now 400;500;600;700 for Rajdhani -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 </head>
 <body>
 <div class="noise"></div>
